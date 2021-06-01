@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  company: Company = { nit: '900674336', status: true };
+  company: Company;
   form: FormGroup;
   constructor(
     private router: Router,
@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
       if (this.router.getCurrentNavigation().extras.state) {
         this.company = this.router.getCurrentNavigation().extras.state.company;
       } else {
-        // this.router.navigateByUrl('/validate-company-nit');
+        this.router.navigateByUrl('/validate-company-nit');
       }
     });
   }

@@ -10,7 +10,7 @@ export class EndpointService {
   constructor(private http: HttpClient) {}
 
   private getBaseUrl(url) {
-    return `${environment.mockUrl}/${url}`;
+    return `${environment.api}/${url}`;
   }
 
   get(url, options?): Observable<any> {
