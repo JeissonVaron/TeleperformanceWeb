@@ -1,0 +1,101 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-md-9 mt-3">
+            <div class="card">
+                <div class="card-body">
+                    <form (ngSubmit)="onSubmit()" [formGroup]="form" class="row">
+                        <div class="form-group mt-3 col-12 col-md-6">
+                            <label for="inputIdentificationType">Tipo de identificación: </label>
+                            <select id="inputIdentificationType" class="form-control" formControlName="identificationType">
+                                <option value="">Seleccione un tipo de identificación…</option>
+                                <option value="1">Cedula</option>
+                                <option value="2">Tarjeta de Identidad</option>
+                                <option value="3">Extranjeria</option>
+                                <option value="4">Pasaporte</option>
+                                <option value="5">NIT</option>
+                              </select>
+                            <div *ngIf="f.identificationType.errors && f.identificationType.touched">
+                                <small *ngIf="f.identificationType.errors.required" class="form-text text-muted required">Tipo de identificación es requerido</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-3 col-12 col-md-6">
+                            <label for="inputidentificationNumber">Número de identificación: </label>
+                            <input type="text" class="form-control" id="inputidentificationNumber" placeholder="Ingresea identificación" formControlName="identificationNumber">
+                            <div *ngIf="f.identificationNumber.errors && f.identificationNumber.touched">
+                                <small *ngIf="f.identificationNumber.errors.required" class="form-text text-muted required">Número de identificación es requerido</small>
+                                <small *ngIf="f.identificationNumber.errors.pattern" class="form-text text-muted required">Número de identificación debe ser numérico</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-3 col-12" *ngIf="f.identificationType.value == 3 || f.identificationType.value == 5">
+                            <label for="inputCompanyName">Nombre de la empresa: </label>
+                            <input type="text" class="form-control" id="inputCompanyName" placeholder="Ingrese nombre" formControlName="companyName">
+                            <div *ngIf="f.companyName.errors && f.companyName.touched">
+                                <small *ngIf="f.companyName.errors.required" class="form-text text-muted required">Nombre de la empresa es requerido</small>
+                                <small *ngIf="f.companyName.errors.pattern" class="form-text text-muted required">Nombre de la empresa no debe tener números</small>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3 col-12 col-md-6" *ngIf="f.identificationType.value == 1 || f.identificationType.value == 2 || f.identificationType.value == 4">
+                            <label for="inputName">Primer nombre: </label>
+                            <input type="text" class="form-control" id="inputName" placeholder="Ingrese nombre" formControlName="firstName">
+                            <div *ngIf="f.firstName.errors && f.firstName.touched">
+                                <small *ngIf="f.firstName.errors.required" class="form-text text-muted required">Primer nombre es requerido</small>
+                                <small *ngIf="f.firstName.errors.pattern" class="form-text text-muted required">Primer nombre no debe tener números</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-3 col-12 col-md-6" *ngIf="f.identificationType.value == 1 || f.identificationType.value == 2 || f.identificationType.value == 4">
+                            <label for="inputSecondName">Segundo nombre: </label>
+                            <input type="text" class="form-control" id="inputSecondName" placeholder="Ingrese segundo nombre" formControlName="secondName">
+                            <div *ngIf="f.secondName.errors && f.secondName.touched">
+                                <small *ngIf="f.secondName.errors.pattern" class="form-text text-muted required">Segundo nombre no debe tener números</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-3 col-12 col-md-6" *ngIf="f.identificationType.value == 1 || f.identificationType.value == 2 || f.identificationType.value == 4">
+                            <label for="inputfirstLastname">Primer apellido: </label>
+                            <input type="text" class="form-control" id="inputfirstLastname" placeholder="Ingrese primer apellido" formControlName="firstLastname">
+                            <div *ngIf="f.firstLastname.errors && f.firstLastname.touched">
+                                <small *ngIf="f.firstLastname.errors.required" class="form-text text-muted required">Primer apellido es requerido</small>
+                                <small *ngIf="f.firstLastname.errors.pattern" class="form-text text-muted required">Primer apellido no debe tener números</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-3 col-12 col-md-6" *ngIf="f.identificationType.value == 1 || f.identificationType.value == 2 || f.identificationType.value == 4">
+                            <label for="inputsecondLastname">Segundo apellido: </label>
+                            <input type="text" class="form-control" id="inputsecondLastname" placeholder="Ingrese segundo apellido" formControlName="secondLastname">
+                            <div *ngIf="f.secondLastname.errors && f.secondLastname.touched">
+                                <small *ngIf="f.secondLastname.errors.pattern" class="form-text text-muted required">Segundo apellido no debe tener números</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group mt-3 col-12 col-md-12">
+                            <label for="inputemail">Correo electrónico: </label>
+                            <input type="text" class="form-control" id="inputemail" placeholder="Ingrese correo electrónico" formControlName="email">
+                            <div *ngIf="f.email.errors && f.email.touched">
+                                <small *ngIf="f.email.errors.required" class="form-text text-muted required">Correo electrónico es requerido</small>
+                                <small *ngIf="f.email.errors.email" class="form-text text-muted required">Correo electrónico no es valido</small>
+                            </div>
+                        </div>
+
+
+                        <div class="pl-3">
+                            <div class="form-check mt-3">
+                                <input type="checkbox" class="form-check-input" id="inputauthorizeCellPhone" formControlName="authorizeCellPhone">
+                                <label class="form-check-label" for="inputauthorizeCellPhone">Autorizo ​​el envío de mensajes al celular</label>
+                            </div>
+                            <div class="form-check ">
+                                <input type="checkbox" class="form-check-input" id="inputauthorizeEmail" formControlName="authorizeEmail">
+                                <label class="form-check-label" for="inputauthorizeEmail">Autorizo ​​el envío de mensajes al de correo electrónico</label>
+                            </div>
+                        </div>
+                        <div class="w-100 mt-3">
+                            <button type="submit" class="btn btn-primary">Continuar</button>
+                        </div>
+                      </form>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>

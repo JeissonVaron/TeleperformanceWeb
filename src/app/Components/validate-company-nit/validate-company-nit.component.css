@@ -1,3 +1,6 @@
+.btn {
+    float: right;
+}
 .required {
     color: red !important;
 }

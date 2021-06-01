@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-md-8 mt-3">
+            <div class="card">
+                <div class="card-body">
+                    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+                        <div class="form-group">
+                            <p>Ingrese el NIT de la persona natural o jurídica para la que realizara el trámite, sin incluir el digito de verificación. Luego presione Continuar para completar su solicitud.</p>
+                            <label for="inputNIT">NIT: </label>
+                            <input type="text" class="form-control" id="inputNIT" placeholder="Por favor ingrese un NIT" formControlName="nit">
+                            <div *ngIf="f.nit.errors && f.nit.touched">
+                                <small *ngIf="f.nit.errors.required" class="form-text text-muted required">El NIT es requerido</small>
+                            </div>
+                        </div>
+                        <div class="w-100 mt-3">
+                            <button type="submit" class="btn btn-primary float-right">Continuar</button>
+                        </div>
+                      </form>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
