@@ -111,8 +111,12 @@ export class RegisterComponent implements OnInit {
     .pipe(finalize(() => {
       this.loading = false;
     }))
-    .subscribe(() => {
-      Swal.fire('Registro exitoso');
+    .subscribe((data) => {
+      if(data) {
+        Swal.fire('Registro exitoso');
+      } else {
+        Swal.fire('Actualizacion exitosa');
+      }
       this.router.navigateByUrl('/validate-company-nit');
     }, e => {
       Swal.fire('Oops...', e.error, 'error');

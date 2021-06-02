@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'https://teleperformanceapiv1.azurewebsites.net/api'
+  api: 'https://localhost:44365/api'
 };
 
 /*
