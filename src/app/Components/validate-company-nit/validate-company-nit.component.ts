@@ -3,6 +3,7 @@ import { Company } from 'src/app/Interfaces/Company';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EndpointService } from 'src/app/Services/endpoint/endpoint.service';
 import { NavigationExtras, Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
 
@@ -13,6 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class ValidateCompanyNitComponent implements OnInit {
   form: FormGroup;
+  loading: boolean = false;
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -34,7 +36,12 @@ export class ValidateCompanyNitComponent implements OnInit {
   }
 
   getCompany(nit: string) {
-    this.endpointService.get(`Companies/${nit}`).subscribe(
+    this.loading = true;
+    this.endpointService.get(`Companies/${nit}`)
+    .pipe(finalize(() => {
+      this.loading = false;
+    }))
+    .subscribe(
       (data: Company) => {
         if (data && data.status) {
           const navigationExtras: NavigationExtras = {

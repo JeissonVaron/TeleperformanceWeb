@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RegisterUser } from 'src/app/Interfaces/RegisterUser';
 import { EndpointService } from 'src/app/Services/endpoint/endpoint.service';
+import { finalize } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
 
@@ -15,6 +16,7 @@ import Swal from 'sweetalert2';
 export class RegisterComponent implements OnInit {
   company: Company;
   form: FormGroup;
+  loading: boolean = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -90,6 +92,8 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
+
     const registerUser: RegisterUser = {
       IdentificationType: this.f.identificationType.value,
       IdentificationNumber: this.f.identificationNumber.value,
@@ -103,7 +107,11 @@ export class RegisterComponent implements OnInit {
       AuthorizationToSendEmailMessages: this.f.authorizeEmail.value,
     };
 
-    this.endpointService.post('Users', registerUser).subscribe(() => {
+    this.endpointService.post('Users', registerUser)
+    .pipe(finalize(() => {
+      this.loading = false;
+    }))
+    .subscribe(() => {
       Swal.fire('Registro exitoso');
       this.router.navigateByUrl('/validate-company-nit');
     }, e => {
